@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./RecipeDetail.css";
 
 function RecipeDetail(props) {
-  console.log(props);
+  // console.log(props);
   const params = useParams();
   const id = params.id;
 

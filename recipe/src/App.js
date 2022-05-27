@@ -35,18 +35,51 @@ function App() {
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
 
-  const handleUpdateRecipe = (id, updatedRecipe) => {
-    const recipeIndex = recipes.findIndex((el) => el._id === id);
+  const handleUpdateRecipe = (updatedRecipe) => {
+    console.log(updatedRecipe);
+    // const recipeIndex = recipes.findIndex((el) => el._id === id);
+    const copyRecipes = [...recipes];
+    const copyRandomRecipes = [...randomRecipes];
+    const copySearchedData = [...searchedData];
 
     setRecipes(
-      recipes.map((el, index) => {
-        if (index === recipeIndex) {
-          el = updatedRecipe;
-          return el;
+      copyRecipes.map((recipe, index) => {
+        console.log("inside line 47");
+        console.log(recipe._id, updatedRecipe._id);
+
+        if (recipe._id === updatedRecipe._id) {
+          console.log("inside line 49");
+          return updatedRecipe;
         }
-        return el;
+        return recipe;
       })
     );
+
+    console.log(recipes);
+
+    setRandomRecipes(
+      copyRandomRecipes.map((recipe) => {
+        if (recipe._id === updatedRecipe._id) {
+          return updatedRecipe;
+        } else {
+          return recipe;
+        }
+      })
+    );
+    console.log(randomRecipes);
+
+    setSearchedData(
+      copySearchedData.map((recipe) => {
+        if (recipe._id === updatedRecipe._id) {
+          return updatedRecipe;
+        } else {
+          return recipe;
+        }
+      })
+    );
+    console.log(searchedData);
+
+    // setSearchedData(recipes);
 
     console.log("handleUpdateRecipe");
   };
@@ -61,16 +94,19 @@ function App() {
     let search = searchRef.current.value;
     console.log(search);
     const searchedData = recipes.map((el) => {
+      // console.log(el.category);
       if (el.category === search) {
         return el;
       }
     });
 
+    // render if value, else don't render
     if (!searchedData.every((el) => el === undefined)) {
       setSearchedData(searchedData);
     } else {
       setSearchedData([]);
     }
+    // clear input render after submission
     searchRef.current.value = "";
   };
 
@@ -206,7 +242,7 @@ function App() {
           path="/recipes"
           element={
             <Recipes
-              // recipes={recipes}
+              recipes={recipes}
               searchedData={searchedData}
               handleAddFavourites={handleAddFavourites}
               handleSearchCategory={handleSearchCategory}

@@ -1,8 +1,12 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Recipe from "./Recipe";
 import "./Recipes.css";
 
 function Recipes(props) {
+  // useEffect(() => {
+  //   props.handleSearchCategory(searchRef);
+  // }, [props.recipes]);
+
   const renderIfValue = (data) => {
     if (data.length > 0) {
       return data.map((el, index) => (

@@ -37,7 +37,8 @@ export default function RecipeUpdate(props) {
       .put(`/recipes/${id}/update`, putRecipe)
       .then((response) => {
         console.log(response);
-        props.handleUpdateRecipe(id, response);
+        const updatedRecipe = response.data;
+        props.handleUpdateRecipe(updatedRecipe);
       })
       .catch((error) => {
         console.log(error);
