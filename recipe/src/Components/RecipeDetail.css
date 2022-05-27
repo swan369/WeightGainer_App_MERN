@@ -1,0 +1,64 @@
+.listContainer {
+    color: white;
+    display: block;
+    /* list-style-type: disc; */
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    background-color: rgb(193, 67, 67);
+    list-style-type: none;
+    ;
+    width: 400px;
+
+  }
+
+  .list{
+      /* display: block; */
+     
+      margin: 10px
+  }
+
+  .picture {
+      display: block;
+      margin-top: 30px;
+      margin-right: auto;
+      margin-left: auto;
+      width: 500px;
+      margin-bottom: 20px;
+  }
+
+.stepsContainer{
+    color: white;
+    /* display: block; */
+    /* list-style-type: disc; */
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    background-color: rgb(193, 67, 67);
+    list-style-type: none;
+    ;
+    width: 400px;
+}
+
+  .stepsList{
+      
+      /* display: block; */
+      margin: 10px
+  }
+
+  .detailContainer{
+      margin-top: 30px;
+      margin-bottom: 50px;
+  }
+
+  button{
+      width: 400px;
+      border: none;
+      background-color: purple;
+      color: white;
+      cursor: pointer
+  }
