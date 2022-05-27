@@ -5,12 +5,12 @@ import Home from "./Components/Home";
 import RecipeDetail from "./Components/RecipeDetail";
 import Recipes from "./Components/Recipes";
 import Favourites from "./Components/Favourites";
-
 import Login from "./Components/Login";
 import CreateRecipe from "./Components/CreateRecipe";
 import About from "./Components/About";
 import CreateUser from "./Components/CreateUser";
 import RecipeUpdate from "./Components/RecipeUpdate";
+
 const axios = require("axios");
 
 const NotFound = () => {
@@ -34,10 +34,30 @@ function App() {
   const [favourites, setFavourites] = useState([]);
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
+  const navigate = useNavigate();
+
+  const recipeDelete = (deletedRecipe) => {
+    const copyRecipes = [...recipes];
+    const copyRandomRecipes = [...randomRecipes];
+    const copySearchedData = [...searchedData];
+
+    setRecipes(
+      copyRecipes.filter((recipe) => recipe._id !== deletedRecipe._id)
+    );
+    setRandomRecipes(
+      copyRandomRecipes.filter((recipe) => recipe._id !== deletedRecipe._id)
+    );
+
+    setSearchedData(
+      copySearchedData.filter((recipe) => recipe._id !== deletedRecipe._id)
+    );
+    console.log("recipeDelete");
+    navigate("/");
+  };
 
   const handleUpdateRecipe = (updatedRecipe) => {
     console.log(updatedRecipe);
-    // const recipeIndex = recipes.findIndex((el) => el._id === id);
+
     const copyRecipes = [...recipes];
     const copyRandomRecipes = [...randomRecipes];
     const copySearchedData = [...searchedData];
@@ -93,19 +113,9 @@ function App() {
     event.preventDefault();
     let search = searchRef.current.value;
     console.log(search);
-    const searchedData = recipes.map((el) => {
-      // console.log(el.category);
-      if (el.category === search) {
-        return el;
-      }
-    });
 
-    // render if value, else don't render
-    if (!searchedData.every((el) => el === undefined)) {
-      setSearchedData(searchedData);
-    } else {
-      setSearchedData([]);
-    }
+    setSearchedData(recipes.filter((el) => el.category === search));
+
     // clear input render after submission
     searchRef.current.value = "";
   };
@@ -118,15 +128,15 @@ function App() {
 
     let randomRecipes = [];
     if (recipes.length > 0) {
-      while (randomRecipes?.length < 3) {
-        let randomIndex = random(4);
+      while (randomRecipes.length < 3) {
+        // random number is 0,1,2 only i.e. 3 rendered
+        let randomIndex = random(recipes.length);
         const found = recipes[randomIndex];
-        const result = randomRecipes.find((el) => el?._id === found?._id);
-        if (result === undefined) {
+        const result = randomRecipes.every((el) => el?._id !== found?._id);
+        if (result) {
           randomRecipes.push(found);
         }
       }
-
       return randomRecipes;
     }
   };
@@ -236,7 +246,9 @@ function App() {
         />
         <Route
           path="/recipes/:id"
-          element={<RecipeDetail recipes={recipes} />}
+          element={
+            <RecipeDetail recipes={recipes} recipeDelete={recipeDelete} />
+          }
         />
         <Route
           path="/recipes"

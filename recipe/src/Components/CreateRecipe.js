@@ -33,8 +33,8 @@ const CreateRecipe = (props) => {
     axios
       .post("http://localhost:3003/recipes", postItem)
       .then(function (response) {
-        console.log(response);
-        props.handleAddRecipe(response);
+        const createdRecipe = response.data;
+        props.handleAddRecipe(createdRecipe);
       })
       .catch(function (error) {
         console.log(error);

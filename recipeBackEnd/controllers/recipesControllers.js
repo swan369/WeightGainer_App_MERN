@@ -47,7 +47,7 @@ const getRecipeByIdAndRemove = async (req, res) => {
     const removedRecipe = await Recipe.findByIdAndRemove(req.params.id);
     res.status(200).json(removedRecipe);
   } catch (error) {
-    res.status(404).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
 

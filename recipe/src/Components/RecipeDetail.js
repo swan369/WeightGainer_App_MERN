@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./RecipeDetail.css";
+import axios from "axios";
 
 function RecipeDetail(props) {
   // console.log(props);
@@ -7,9 +8,26 @@ function RecipeDetail(props) {
   const id = params.id;
 
   const navigate = useNavigate();
+
   const handleEdit = () => {
     navigate(`/recipes/${id}/update`);
     console.log("handleEdit Works");
+  };
+
+  const handleServerDelete = () => {
+    console.log("handleServerDelete");
+    // console.log(id);
+    axios
+      .delete(`/recipes/${id}`)
+      .then((response) => {
+        const deletedData = response.data;
+        console.log(deletedData);
+        props.recipeDelete(deletedData);
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const recipe = props.recipes.find((el) => el._id === id);
@@ -41,7 +59,12 @@ function RecipeDetail(props) {
   return (
     <>
       <div className="detailContainer">
-        <button onClick={handleEdit}>Edit me</button>
+        <div className="buttonContainer">
+          <button onClick={handleEdit}>Edit me</button>
+          <button className="button-handleDelete" onClick={handleServerDelete}>
+            Delete me
+          </button>
+        </div>
         <img className="picture" src={recipe.imageURL} />
 
         <h1>{recipe.name}</h1>

@@ -22,7 +22,7 @@
 
   .picture {
       display: block;
-      margin-top: 30px;
+      /* margin-top: 30px; */
       margin-right: auto;
       margin-left: auto;
       width: 500px;
@@ -56,9 +56,15 @@
   }
 
   button{
-      width: 400px;
+      width: 250px;
       border: none;
       background-color: purple;
       color: white;
       cursor: pointer
   }
+
+  .button-handleDelete{
+      background-color: red;
+  }
+
+ 
