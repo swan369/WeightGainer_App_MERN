@@ -8,6 +8,9 @@ const usersSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  isLogin: { type: String, default: false },
+  createdAt: { type: Date, default: Date.now },
+  updateAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Users", usersSchema);
+module.exports = mongoose.model("User", usersSchema);

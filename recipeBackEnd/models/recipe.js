@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const recipeSchema = mongoose.Schema({
-  category: { type: String, required: true },
-  title: { type: String, required: true },
-  imageURL: { type: String, required: true },
-  ingredients: { type: String, required: true },
-  steps: { type: String, required: true },
+  category: { type: String, required: true, min: 3 },
+  title: { type: String, required: true, min: 3 },
+  imageURL: { type: String, required: true, min: 3 },
+  ingredients: { type: String, required: true, min: 3 },
+  steps: { type: String, required: true, min: 3 },
   creator: { type: String, required: true, min: 2, max: 10 },
   likeCount: {
     type: Number,

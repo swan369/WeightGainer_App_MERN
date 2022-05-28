@@ -3,7 +3,16 @@ import "./Home.css";
 // import { useEffect, useState } from "react";
 
 const Home = (props) => {
-  // console.log(props);
+  if (props.randomRecipes === 0) {
+    return (
+      <>
+        <div className="cardNoRecipes">
+          <h3>No Recipes Found in Database</h3>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="container">

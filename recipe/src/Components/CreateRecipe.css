@@ -62,3 +62,17 @@
   color: red;
   cursor: pointer;
 }
+
+.buttonRecipe{
+  display: block;
+}
+
+.divCreateRecipe{
+  margin-right: auto;
+  margin-left: auto;
+  width: 50em;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: center;
+}

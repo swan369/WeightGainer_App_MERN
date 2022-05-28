@@ -1,36 +1,111 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const Login = () => {
+const Login = (props) => {
+  const navigate = useNavigate();
+  console.log(props.users);
+
   const [login, setLogin] = useState({ email: "", password: "" });
+  const [status, setStatus] = useState("");
+
+  const handleReturn = () => {
+    setStatus("");
+    navigate("/users/login");
+  };
+
+  const handleHome = () => {
+    navigate("/");
+    setStatus("");
+  };
 
   const handleChange = (event) => {
     const name = event.target.name;
-
     console.log("handleChange - event", name, event.target.value);
-
     setLogin({ ...login, [name]: event.target.value });
   };
+
+  const handleToRegistration = function () {
+    navigate("/users/create");
+  };
+
+  const handleSubmit = function () {
+    console.log(login);
+    console.log(props.users);
+
+    const result = props.users.some(
+      (user) => user.email === login.email && user.password === login.password
+    );
+
+    if (result) {
+      const found = props.users.find(
+        (user) => user.email === login.email && user.password === login.password
+      );
+      found.isLogin = true;
+      props.loginUser(found);
+      setStatus("success");
+    }
+    if (!result) {
+      console.log("login does not match, try again");
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <>
+        <div>
+          <h3>successful login</h3>
+          <button onClick={handleHome}>go home</button>
+        </div>
+      </>
+    );
+  }
+  if (status === "error") {
+    return (
+      <>
+        <div>
+          <h3>unsuccessful login, try again</h3>
+          <button onClick={handleReturn}> retry Login</button>
+        </div>
+      </>
+    );
+  }
+  // console.log(loggedUser);
   return (
     <>
-      <h3>login page</h3>
-      <label>Email: </label>
-      <input
-        name="email"
-        value={login.email}
-        onChange={(event) => {
-          handleChange(event);
-        }}
-      />
-      <br />
-      <label>Password: </label>
-      <input
-        name="password"
-        value={login.password}
-        onChange={(event) => {
-          handleChange(event);
-        }}
-      />
+      <div className="divLogin">
+        <h3>login page</h3>
+        <div className="divLoginEmail">
+          <label>Email: </label>
+          <input
+            name="email"
+            value={login.email}
+            onChange={(event) => {
+              handleChange(event);
+            }}
+          />
+        </div>
+
+        <br />
+        <div>
+          <label>Password: </label>
+          <input
+            name="password"
+            value={login.password}
+            onChange={(event) => {
+              handleChange(event);
+            }}
+          />
+        </div>
+
+        <button onClick={handleSubmit} className="btnLoginSubmit">
+          Submit
+        </button>
+        <button onClick={handleToRegistration} className="btnLoginRedirect">
+          Registration
+        </button>
+      </div>
     </>
   );
 };

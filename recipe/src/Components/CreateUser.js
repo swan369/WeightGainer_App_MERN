@@ -5,12 +5,26 @@ import "./CreateUser.css";
 import axios from "axios";
 
 export default function CreateUsers(props) {
+  // console.log(props.isErrorObj.message);
   const [createdUser, setCreatedUser] = useState({});
+  const [error, setError] = useState({});
+
+  console.log(error);
   const navigate = useNavigate();
   const handleCreateUser = (event) => {
     console.log(event.target.value);
     const name = event.target.name;
     setCreatedUser({ ...createdUser, [name]: event.target.value });
+  };
+
+  const handleReturn = function () {
+    setError({});
+    navigate("/users/create");
+  };
+
+  const handleRedirectHome = function () {
+    setError({});
+    navigate("/users/login");
   };
 
   const handleSubmit = (event) => {
@@ -21,12 +35,37 @@ export default function CreateUsers(props) {
         const newUser = response;
         console.log(newUser);
         props.handleAddUser(newUser);
+        setError({ isError: false });
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error.response.data.message);
+        const errorMessage = error.response.data.message;
+
+        setError({
+          message: errorMessage,
+          isError: true,
+        });
       });
-    navigate("/");
   };
+
+  if (error.isError === true) {
+    return (
+      <div>
+        <h3>Error: See below message for details...</h3>
+        {error.message}
+        <button onClick={handleReturn}>Return to Registration</button>
+      </div>
+    );
+  }
+
+  if (error.isError === false) {
+    return (
+      <>
+        <div>Registration Success !</div>
+        <button onClick={handleRedirectHome}>Click to go home</button>
+      </>
+    );
+  }
 
   return (
     <>

@@ -12,7 +12,7 @@ const createRecipe = async (req, res) => {
 const getAllRecipes = async (req, res) => {
   try {
     const allRecipes = await Recipe.find({});
-    res.status(201).json(allRecipes);
+    res.status(200).json(allRecipes);
   } catch (error) {
     res.status(404).json({ error: error.message });
   }

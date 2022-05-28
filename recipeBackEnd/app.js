@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 //*** make sure "/" is there and route elements also have "/" to start even it appears like duplicate
 // Ensure this middleware comes after whitelist CORs
 app.use("/users/", usersRoutes);
-app.use("/", recipesRoutes);
+app.use("/recipes/", recipesRoutes);
 
 mongoose.connect(
   `mongodb+srv://${process.env.userNamePw}@cluster0.1t4x2.mongodb.net/recipes`,

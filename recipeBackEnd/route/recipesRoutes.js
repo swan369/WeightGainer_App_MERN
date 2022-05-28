@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const recipesControllers = require("../controllers/recipesControllers");
 
-router.post("/recipes", recipesControllers.createRecipe);
+router.post("/", recipesControllers.createRecipe);
 
-router.get("/recipes", recipesControllers.getAllRecipes);
+router.get("/", recipesControllers.getAllRecipes);
 
-router.get("/recipes/:id", recipesControllers.getRecipeById);
+router.get("/:id", recipesControllers.getRecipeById);
 
-router.put("/recipes/:id/update", recipesControllers.getRecipeByIdAndUpdate);
+router.put("/:id/update", recipesControllers.getRecipeByIdAndUpdate);
 
-router.delete("/recipes/:id", recipesControllers.getRecipeByIdAndRemove);
+router.delete("/:id", recipesControllers.getRecipeByIdAndRemove);
 
 module.exports = router;

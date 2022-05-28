@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes, Link, useNavigate } from "react-router-dom";
+import { Route, Routes, Link, Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Home from "./Components/Home";
 import RecipeDetail from "./Components/RecipeDetail";
@@ -10,22 +10,23 @@ import CreateRecipe from "./Components/CreateRecipe";
 import About from "./Components/About";
 import CreateUser from "./Components/CreateUser";
 import RecipeUpdate from "./Components/RecipeUpdate";
+import Success from "./Components/Success";
 
 const axios = require("axios");
 
-const NotFound = () => {
-  const redirect = () => {
-    navigate("/");
-  };
+// const NotFound = () => {
+//   const redirect = () => {
+//     navigate("/");
+//   };
 
-  const navigate = useNavigate();
-  return (
-    <>
-      <h1>path not found</h1>
-      <button onClick={redirect}>Press to go home</button>
-    </>
-  );
-};
+//   const navigate = useNavigate();
+//   return (
+//     <>
+//       <h1>path not found</h1>
+//       <button onClick={redirect}>Press to go home</button>
+//     </>
+//   );
+// };
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -34,7 +35,13 @@ function App() {
   const [favourites, setFavourites] = useState([]);
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
+  const [loggedUser, setLoggedUser] = useState({});
+
   const navigate = useNavigate();
+
+  const loginUser = (found) => {
+    setLoggedUser(found);
+  };
 
   const recipeDelete = (deletedRecipe) => {
     const copyRecipes = [...recipes];
@@ -180,8 +187,24 @@ function App() {
       });
   };
 
+  const getAllUsers = () => {
+    setStatus("pending");
+    axios
+      .get("http://localhost:3003/users")
+      .then(function (response) {
+        // const users = response.data;
+        setStatus("complete");
+        setUsers(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setStatus("error");
+      });
+  };
+
   useEffect(() => {
     getAllRecipes();
+    getAllUsers();
   }, []);
 
   useEffect(() => {
@@ -227,7 +250,8 @@ function App() {
       </ul>
 
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="/success" element={<Success />} />
         <Route path="/about" element={<About />} />
         <Route
           path="/"
@@ -243,7 +267,11 @@ function App() {
         <Route
           path="/recipes/:id"
           element={
-            <RecipeDetail recipes={recipes} recipeDelete={recipeDelete} />
+            <RecipeDetail
+              recipes={recipes}
+              recipeDelete={recipeDelete}
+              loggedUser={loggedUser}
+            />
           }
         />
         <Route
@@ -272,7 +300,10 @@ function App() {
           path="/recipes/create"
           element={<CreateRecipe handleAddRecipe={handleAddRecipe} />}
         />
-        <Route path="/users/login" element={<Login />} />
+        <Route
+          path="/users/login"
+          element={<Login users={users} loginUser={loginUser} />}
+        />
         <Route
           path="/users/create"
           element={<CreateUser handleAddUser={handleAddUser} />}
@@ -280,8 +311,15 @@ function App() {
 
         <Route
           path="/recipes/:id/update"
-          element={<RecipeUpdate handleUpdateRecipe={handleUpdateRecipe} />}
+          element={
+            <RecipeUpdate
+              handleUpdateRecipe={handleUpdateRecipe}
+              loggedUser={loggedUser}
+            />
+          }
         />
+
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
+import { useState } from "react";
 
 export default function RecipeUpdate(props) {
-  const id = useParams().id;
-  console.log(id);
   const navigate = useNavigate();
+  const [status, setStatus] = useState("pending");
+  const id = useParams().id;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const putRecipe = {
@@ -36,15 +38,22 @@ export default function RecipeUpdate(props) {
       //http://localhost:3000 was removed as proxy was setup in package.json
       .put(`/recipes/${id}/update`, putRecipe)
       .then((response) => {
+        setStatus("success");
         console.log(response);
         const updatedRecipe = response.data;
         props.handleUpdateRecipe(updatedRecipe);
       })
       .catch((error) => {
+        setStatus("fail");
         console.log(error);
       });
-    navigate("/");
   };
+  console.log(status);
+  if (status === "success") {
+    setStatus("");
+    console.log("line55");
+    navigate("/success");
+  }
 
   return (
     <>

@@ -1,8 +1,10 @@
 import "./CreateRecipe.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const CreateRecipe = (props) => {
+  const [error, setError] = useState({});
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,12 +38,36 @@ const CreateRecipe = (props) => {
       .then(function (response) {
         const createdRecipe = response.data;
         props.handleAddRecipe(createdRecipe);
+        navigate("/success");
       })
       .catch(function (error) {
-        console.log(error);
+        const errorMessage = error.response.data.error;
+        console.log(errorMessage);
+        setError({
+          isError: true,
+          message: errorMessage,
+        });
       });
-    navigate("/");
   };
+  const handleRedirect = function () {
+    navigate("/recipes/create");
+    setError({});
+    console.log("handleRedirect");
+  };
+  if (error.isError === true) {
+    return (
+      <>
+        <div className="divCreateRecipe">
+          <h3>Error: please see below for details</h3>
+
+          {error.message}
+          <button className="buttonRecipe" onClick={handleRedirect}>
+            Return to Recipe Creation
+          </button>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

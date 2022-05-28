@@ -1,8 +1,8 @@
-const Users = require("../models/users");
+const User = require("../models/users");
 
 const createUser = async (req, res, next) => {
   try {
-    const createdUser = await Users.create(req.body);
+    const createdUser = await User.create(req.body);
     res.status(201).json({ message: createdUser });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -11,16 +11,16 @@ const createUser = async (req, res, next) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const fetchAllUsers = await Users.find({});
-    res.status(200).json({ fetchAllUsers });
+    const allUsers = await User.find({});
+    res.status(200).json(allUsers);
   } catch (error) {
-    res.status(200).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
 
 const getUserByIdAndUpdate = async (req, res, next) => {
   try {
-    const updatedUser = await Users.findByIdAndUpdate(req.params, req.body);
+    const updatedUser = await User.findByIdAndUpdate(req.params, req.body);
     res.status(200).json({ updatedUser });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -29,7 +29,7 @@ const getUserByIdAndUpdate = async (req, res, next) => {
 
 const getUserByIdAndDelete = async (req, res, next) => {
   try {
-    const deletedUser = await Users.findByIdAndDelete(req.params);
+    const deletedUser = await User.findByIdAndDelete(req.params);
     res.status(200).json({ deletedUser });
   } catch (error) {
     res.status(400).json({ error: error.message });

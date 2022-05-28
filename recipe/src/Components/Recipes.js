@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Recipe from "./Recipe";
 import "./Recipes.css";
 
