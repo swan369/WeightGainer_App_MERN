@@ -28,6 +28,7 @@ function RecipeDetail(props) {
       .catch((error) => {
         console.log(error);
       });
+    navigate("/");
   };
 
   const recipe = props.recipes.find((el) => el._id === id);

@@ -3,7 +3,6 @@ const app = express();
 require("dotenv").config();
 app.use(express.static("public"));
 const mongoose = require("mongoose");
-// const Recipe = require("./models/recipe");
 const usersRoutes = require("./route/usersRoutes");
 const recipesRoutes = require("./route/recipesRoutes");
 // const cors = require("cors");

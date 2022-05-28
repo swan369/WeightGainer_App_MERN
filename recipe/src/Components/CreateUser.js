@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CreateUser.css";
 import axios from "axios";
 
 export default function CreateUsers(props) {
-  console.log(props);
   const [createdUser, setCreatedUser] = useState({});
-
+  const navigate = useNavigate();
   const handleCreateUser = (event) => {
     console.log(event.target.value);
     const name = event.target.name;
@@ -22,17 +22,22 @@ export default function CreateUsers(props) {
         console.log(newUser);
         props.handleAddUser(newUser);
       })
-      .then(function (error) {
+      .catch(function (error) {
         console.log(error);
       });
+    navigate("/");
   };
 
   return (
     <>
+      <h3>Account Management</h3>
       <form className="createUserContainer">
-        <div>
-          <label htmlFor="name">Name: </label>
+        <div className="divRegisterInput">
+          <label className="labelRegister" htmlFor="name">
+            Name:{" "}
+          </label>
           <input
+            className="inputRegister"
             type="text"
             id="name"
             name="name"
@@ -40,9 +45,12 @@ export default function CreateUsers(props) {
             onChange={handleCreateUser}
           />
         </div>
-        <div>
-          <label htmlFor="email">Email: </label>
+        <div className="divRegisterInput">
+          <label className="labelRegister" htmlFor="email">
+            Email:{" "}
+          </label>
           <input
+            className="inputRegister"
             type="text"
             id="email"
             name="email"
@@ -50,9 +58,12 @@ export default function CreateUsers(props) {
             onChange={handleCreateUser}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password: </label>
+        <div className="divRegisterInput">
+          <label className="labelRegister" htmlFor="password">
+            Password:{" "}
+          </label>
           <input
+            className="inputRegister"
             type="text"
             id="password"
             name="password"
@@ -60,7 +71,10 @@ export default function CreateUsers(props) {
             onChange={handleCreateUser}
           />
         </div>
-        <button onClick={handleSubmit}>Submit</button>
+
+        <button className="buttonRegister" onClick={handleSubmit}>
+          Submit
+        </button>
       </form>
     </>
   );

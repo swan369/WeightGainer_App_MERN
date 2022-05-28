@@ -1,8 +1,9 @@
 import "./CreateRecipe.css";
 import axios from "axios";
-// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreateRecipe = (props) => {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -39,6 +40,7 @@ const CreateRecipe = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    navigate("/");
   };
 
   return (

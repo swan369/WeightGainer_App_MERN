@@ -68,14 +68,11 @@ function App() {
         console.log(recipe._id, updatedRecipe._id);
 
         if (recipe._id === updatedRecipe._id) {
-          console.log("inside line 49");
           return updatedRecipe;
         }
         return recipe;
       })
     );
-
-    console.log(recipes);
 
     setRandomRecipes(
       copyRandomRecipes.map((recipe) => {
@@ -86,7 +83,6 @@ function App() {
         }
       })
     );
-    console.log(randomRecipes);
 
     setSearchedData(
       copySearchedData.map((recipe) => {
@@ -292,3 +288,5 @@ function App() {
 }
 
 export default App;
+
+// "proxy": "http://localhost:3003",

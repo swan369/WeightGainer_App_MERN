@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
 
 export default function RecipeUpdate(props) {
   const id = useParams().id;
   console.log(id);
-
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const putRecipe = {
@@ -43,6 +43,7 @@ export default function RecipeUpdate(props) {
       .catch((error) => {
         console.log(error);
       });
+    navigate("/");
   };
 
   return (

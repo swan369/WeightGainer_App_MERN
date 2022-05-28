@@ -2,8 +2,32 @@
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-    width: 800px;
+    width: 30em;
+    height: 30em;
     display: flex;
     flex-direction: column;
-    background-color: orange;
+    background-color: rgb(170, 10, 10)
+}
+
+.divRegisterInput{
+    margin-top:0.5em;
+    margin-bottom: 0.5em
+}
+
+.inputRegister {
+    width: 20em;
+    height: 2em;
+    float: right;
+    margin-right: 2em;
+}
+
+.labelRegister {
+    float: left;
+    margin-left: 2em;
+}
+
+.buttonRegister{
+width: 100%;
+cursor: "pointer";
+margin-top: 20em;
 }
