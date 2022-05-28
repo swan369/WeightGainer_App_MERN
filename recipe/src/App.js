@@ -43,6 +43,16 @@ function App() {
     setLoggedUser(found);
   };
 
+  const handleLogOut = () => {
+    console.log("handleLogOut");
+    const newUsers = [...users];
+    const found = newUsers.find((user) => user.isLogin === true);
+    found.isLogin = false;
+    setLoggedUser(found);
+    const filtered = users.filter((user) => user._id !== found._id);
+    setUsers([...filtered, found]);
+  };
+
   const recipeDelete = (deletedRecipe) => {
     const copyRecipes = [...recipes];
     const copyRandomRecipes = [...randomRecipes];
@@ -235,17 +245,21 @@ function App() {
         <li>
           <Link to="/favourites">Favourites</Link>
         </li>
-        <li>
-          <Link to="/users/login">Login</Link>
-        </li>
-        <li>
+
+        {/* <li>
           <Link to="/users/register">Register</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/recipes/create">CreateRecipe</Link>
         </li>
         <li>
-          <Link to="/users/create">CreateUsers</Link>
+          <Link to="/users/create">Register</Link>
+        </li>
+        <li>
+          <Link to="/users/login">Login</Link>
+        </li>
+        <li onClick={handleLogOut}>
+          <Link to="/">Logout</Link>
         </li>
       </ul>
 
