@@ -47,7 +47,7 @@ function App() {
     console.log("handleLogOut");
     const newUsers = [...users];
     const found = newUsers.find((user) => user.isLogin === true);
-    found.isLogin = false;
+    found["isLogin"] = false;
     setLoggedUser(found);
     const filtered = users.filter((user) => user._id !== found._id);
     setUsers([...filtered, found]);

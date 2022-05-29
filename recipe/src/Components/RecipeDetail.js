@@ -1,17 +1,27 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./RecipeDetail.css";
 import axios from "axios";
 
 function RecipeDetail(props) {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState({ warning: false, delete: false });
-  const [status, setStatus] = useState("");
+  const [deleteStatus, setDeleteStatus] = useState(false);
   const [editStatus, setEditStatus] = useState("");
 
   const params = useParams();
   const id = params.id;
 
+  const canDelete = prompt.delete === "confirm";
+
+  useEffect(() => {
+    if (canDelete) {
+      setPrompt({ ...prompt, delete: "success" });
+      axiosDelete();
+    }
+  }, [canDelete]);
+
+  // ############ edit ################
   const handleEdit = () => {
     if (props.loggedUser.isLogin === true) {
       navigate(`/recipes/${id}/update`);
@@ -36,36 +46,28 @@ function RecipeDetail(props) {
     );
   }
 
+  // ########## delete #############
+
   const handleConfirmDelete = () => {
     console.log("handleConfirmDelete");
-    const deleteObj = { delete: true };
-    setPrompt({ ...prompt, ...deleteObj });
-    console.log(prompt.delete);
+    setPrompt({ ...prompt, ...{ delete: "confirm", warning: false } });
+    setDeleteStatus(false);
   };
 
   const handleIsDelete = () => {
     if (props.loggedUser.isLogin === true) {
+      setDeleteStatus(true);
       setPrompt({ ...prompt, warning: true });
-      setStatus("");
+      // setStatus("");
     } else {
-      setStatus("fail");
+      setDeleteStatus("fail");
     }
   };
 
   const handleGoBack = () => {
-    setStatus("");
+    setDeleteStatus("");
     navigate("/users/login");
   };
-  if (status === "fail") {
-    return (
-      <>
-        <div>
-          <h3>You are not logged in</h3>
-          <button onClick={handleGoBack}>Go log in</button>
-        </div>
-      </>
-    );
-  }
 
   const axiosDelete = () => {
     axios
@@ -80,12 +82,16 @@ function RecipeDetail(props) {
       });
   };
 
-  if (prompt.delete === true) {
-    axiosDelete();
-    setPrompt({});
+  if (prompt.delete === "success") {
+    navigate("/success");
+    // return (
+    //   <>
+    //     <div>Delete Success</div>
+    //   </>
+    // );
   }
 
-  if (prompt.warning === true) {
+  if (prompt.warning) {
     return (
       <>
         <div>
@@ -95,7 +101,27 @@ function RecipeDetail(props) {
       </>
     );
   }
+  // ##### login valdiation #####
+  if (!props.loggedUser.isLogin && (deleteStatus || editStatus)) {
+    return (
+      <>
+        <div>
+          <h3>You are not logged in</h3>
+          <button onClick={handleGoBack}>Go log in</button>
+        </div>
+      </>
+    );
+  }
 
+  const List = (props) => {
+    return (
+      <li className="list">
+        {props.index} {props.el}
+      </li>
+    );
+  };
+
+  // ############ recipes output start #############
   const recipe = props.recipes.find((el) => el._id === id);
 
   const recipeIngredients = recipe.ingredients;
@@ -107,9 +133,7 @@ function RecipeDetail(props) {
     return (
       <>
         <div className="divList">
-          <li className="list" key={el._id}>
-            {index + 1}. {el}{" "}
-          </li>
+          <List key={el._id} id={el._id} el={el} index={props.index + 1} />
         </div>
       </>
     );
@@ -121,12 +145,14 @@ function RecipeDetail(props) {
   const steps = newSteps.map((el, index) => {
     return (
       <div className="divList">
-        <li className="list" key={el._id}>
+        <List key={el._id} index={index + 1} el={el} />
+        {/* <li className="list" key={el._id}>
           {index + 1}. {el}
-        </li>
+        </li> */}
       </div>
     );
   });
+  // ###### recipes output end page #########
 
   return (
     <>

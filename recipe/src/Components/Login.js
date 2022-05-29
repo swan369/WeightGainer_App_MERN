@@ -4,7 +4,7 @@ import "./Login.css";
 
 const Login = (props) => {
   const navigate = useNavigate();
-  console.log(props.users);
+  // console.log(props.users);
 
   const [login, setLogin] = useState({ email: "", password: "" });
   const [status, setStatus] = useState("");
@@ -21,7 +21,7 @@ const Login = (props) => {
 
   const handleChange = (event) => {
     const name = event.target.name;
-    console.log("handleChange - event", name, event.target.value);
+    // console.log("handleChange - event", name, event.target.value);
     setLogin({ ...login, [name]: event.target.value });
   };
 
@@ -31,7 +31,7 @@ const Login = (props) => {
 
   const handleSubmit = function () {
     console.log(login);
-    console.log(props.users);
+    // console.log(props.users);
 
     const result = props.users.some(
       (user) => user.email === login.email && user.password === login.password
