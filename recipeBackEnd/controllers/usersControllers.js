@@ -20,7 +20,9 @@ const getAllUsers = async (req, res, next) => {
 
 const getUserByIdAndUpdate = async (req, res, next) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params, req.body);
+    console.log("got into backend");
+    console.log(req.params.id);
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({ updatedUser });
   } catch (error) {
     res.status(400).json({ error: error.message });

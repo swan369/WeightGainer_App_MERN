@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./UserDetail.css";
 import UserUpdate from "./UserUpdate";
 
 export default function UserDetail(props) {
+  console.log(props);
   const [isUpdate, setIsUpdate] = useState(false);
-  const id = useParams().id;
+  // const id = useParams().id;
   console.log(props.loggedUser.isLogin);
   let navigate = useNavigate();
   if (!props.loggedUser.isLogin) {
@@ -34,7 +35,7 @@ export default function UserDetail(props) {
       <div>
         <h3>UserDetail</h3>
       </div>
-      {isUpdate ? <UserUpdate /> : html}
+      {isUpdate ? <UserUpdate toUpdateUsers={props.toUpdateUsers} /> : html}
     </>
   );
 }

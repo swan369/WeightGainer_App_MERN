@@ -46,6 +46,15 @@ function App() {
     setLoggedUser(found);
   };
 
+  const toUpdateUsers = (updatedUser) => {
+    console.log(updatedUser);
+    const newUsers = [...users];
+    const updatedUsers = newUsers.filter(
+      (user) => user._id !== updatedUser._id
+    );
+    setUsers([...updatedUsers, updatedUser]);
+  };
+
   const handleLogOut = () => {
     console.log("handleLogOut");
     const newUsers = [...users];
@@ -333,10 +342,13 @@ function App() {
         >
           <Route
             path="/users/account/:id"
-            element={<UserDetail loggedUser={loggedUser} />}
+            element={
+              <UserDetail
+                loggedUser={loggedUser}
+                toUpdateUsers={toUpdateUsers}
+              />
+            }
           />
-          {/* <Route path="/users/account/:id/update" element={<UserUpdate />} /> */}
-
           <Route
             path="/users/account/create"
             element={<CreateUser handleAddUser={handleAddUser} />}
