@@ -5,12 +5,14 @@ import "./CreateUser.css";
 import axios from "axios";
 
 export default function CreateUsers(props) {
+  const navigate = useNavigate();
   // console.log(props.isErrorObj.message);
+
   const [createdUser, setCreatedUser] = useState({});
   const [error, setError] = useState({});
 
   console.log(error);
-  const navigate = useNavigate();
+
   const handleCreateUser = (event) => {
     console.log(event.target.value);
     const name = event.target.name;
@@ -19,7 +21,7 @@ export default function CreateUsers(props) {
 
   const handleReturn = function () {
     setError({});
-    navigate("/users/create");
+    navigate("/users/account/create");
   };
 
   const handleRedirectHome = function () {
@@ -62,15 +64,15 @@ export default function CreateUsers(props) {
     return (
       <>
         <div>Registration Success !</div>
-        <button onClick={handleRedirectHome}>Click to go home</button>
+        <button onClick={handleRedirectHome}>Click to login</button>
       </>
     );
   }
 
   return (
     <>
-      <h3>Account Management</h3>
       <form className="createUserContainer">
+        <h3>Register</h3>
         <div className="divRegisterInput">
           <label className="labelRegister" htmlFor="name">
             Name:{" "}
@@ -112,7 +114,7 @@ export default function CreateUsers(props) {
         </div>
 
         <button className="buttonRegister" onClick={handleSubmit}>
-          Submit
+          Register
         </button>
       </form>
     </>

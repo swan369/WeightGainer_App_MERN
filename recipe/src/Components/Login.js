@@ -26,7 +26,7 @@ const Login = (props) => {
   };
 
   const handleToRegistration = function () {
-    navigate("/users/create");
+    navigate("/users/account/create");
   };
 
   const handleSubmit = function () {
@@ -100,10 +100,10 @@ const Login = (props) => {
         </div>
 
         <button onClick={handleSubmit} className="btnLoginSubmit">
-          Submit
+          Login
         </button>
         <button onClick={handleToRegistration} className="btnLoginRedirect">
-          Registration
+          Link to Registration
         </button>
       </div>
     </>

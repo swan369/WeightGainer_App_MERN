@@ -1,7 +1,6 @@
 .listContainer {
     color: white;
     display: block;
-    /* list-style-type: disc; */
     margin-top: 1em;
     margin-bottom: 1 em;
     margin-left: auto;
@@ -42,8 +41,6 @@
 
 .stepsContainer{
     color: white;
-    /* display: block; */
-    /* list-style-type: disc; */
     margin-top: 1em;
     margin-bottom: 1 em;
     margin-left: auto;
@@ -56,8 +53,6 @@
 }
 
   .stepsList{
-      
-      /* display: block; */
       margin: 10px
   }
 

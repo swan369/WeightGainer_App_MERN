@@ -11,6 +11,9 @@ import About from "./Components/About";
 import CreateUser from "./Components/CreateUser";
 import RecipeUpdate from "./Components/RecipeUpdate";
 import Success from "./Components/Success";
+import Account from "./Components/Account";
+import UserUpdate from "./Components/UserUpdate";
+import UserDetail from "./Components/UserDetail";
 
 const axios = require("axios");
 
@@ -35,7 +38,7 @@ function App() {
   const [favourites, setFavourites] = useState([]);
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
-  const [loggedUser, setLoggedUser] = useState({});
+  const [loggedUser, setLoggedUser] = useState(false);
 
   const navigate = useNavigate();
 
@@ -253,7 +256,7 @@ function App() {
           <Link to="/recipes/create">CreateRecipe</Link>
         </li>
         <li>
-          <Link to="/users/create">Register</Link>
+          <Link to="/users/account">Account Management</Link>
         </li>
         <li>
           <Link to="/users/login">Login</Link>
@@ -323,10 +326,22 @@ function App() {
           path="/users/login"
           element={<Login users={users} loginUser={loginUser} />}
         />
+
         <Route
-          path="/users/create"
-          element={<CreateUser handleAddUser={handleAddUser} />}
-        />
+          path="users/account"
+          element={<Account loggedUser={loggedUser} />}
+        >
+          <Route
+            path="/users/account/:id"
+            element={<UserDetail loggedUser={loggedUser} />}
+          />
+          <Route path="/users/account/:id/update" element={<UserUpdate />} />
+
+          <Route
+            path="/users/account/create"
+            element={<CreateUser handleAddUser={handleAddUser} />}
+          />
+        </Route>
 
         <Route
           path="/recipes/:id/update"
