@@ -335,7 +335,7 @@ function App() {
             path="/users/account/:id"
             element={<UserDetail loggedUser={loggedUser} />}
           />
-          <Route path="/users/account/:id/update" element={<UserUpdate />} />
+          {/* <Route path="/users/account/:id/update" element={<UserUpdate />} /> */}
 
           <Route
             path="/users/account/create"
