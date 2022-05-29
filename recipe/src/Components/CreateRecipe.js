@@ -69,6 +69,19 @@ const CreateRecipe = (props) => {
     );
   }
 
+  const handleToLogin = () => {
+    navigate("/users/login");
+  };
+
+  if (!props.loggedUser.isLogin) {
+    return (
+      <div>
+        <h3>You need to login</h3>
+        <button onClick={handleToLogin}>ok</button>
+      </div>
+    );
+  }
+
   return (
     <>
       <form className="inputCreator" onSubmit={handleSubmit}>

@@ -312,7 +312,12 @@ function App() {
         />
         <Route
           path="/recipes/create"
-          element={<CreateRecipe handleAddRecipe={handleAddRecipe} />}
+          element={
+            <CreateRecipe
+              handleAddRecipe={handleAddRecipe}
+              loggedUser={loggedUser}
+            />
+          }
         />
         <Route
           path="/users/login"
