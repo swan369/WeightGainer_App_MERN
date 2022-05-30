@@ -1,14 +1,22 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Recipe from "./Recipe";
+import SearchRadio from "./SearchRadio";
 import "./Recipes.css";
 
 function Recipes(props) {
-  // useEffect(() => {
-  //   props.handleSearchCategory(searchRef);
-  // }, [props.recipes]);
+  const [isSearched, setIsSearched] = useState(false);
+  const [checked, setChecked] = useState({
+    title: false,
+    category: true,
+    id: false,
+  });
+
+  const checkUpdateRadio = (checkedObj) => {
+    setChecked(checkedObj);
+  };
 
   const renderIfValue = (data) => {
-    if (data.length > 0) {
+    if (data.length > 0 && isSearched) {
       return data.map((el, index) => (
         <Recipe
           id={el?._id}
@@ -19,7 +27,8 @@ function Recipes(props) {
           handleRemoveSearched={props.handleRemoveSearched}
         />
       ));
-    } else {
+    }
+    if (data.length === 0 && isSearched) {
       return <h3>Invalid Search or No Data Available</h3>;
     }
   };
@@ -27,23 +36,31 @@ function Recipes(props) {
   const searchRef = useRef();
   return (
     <>
-      <form className="example">
-        <input
-          ref={searchRef}
-          className="inputSearch"
-          type="text"
-          placeholder="Search by category..."
-          name="search"
-        />
-        <button
-          onClick={(event) => props.handleSearchCategory(event, searchRef)}
-          type="submit"
-          className="buttonSearch"
-        >
-          Press
-        </button>
-      </form>
-      <div className="searchContainer">{renderIfValue(props.searchedData)}</div>
+      <div>
+        <form className="example">
+          <input
+            ref={searchRef}
+            className="inputSearch"
+            type="text"
+            placeholder="Search by title, id, or category"
+            name="search"
+          />
+          <button
+            onClick={(event) => {
+              setIsSearched(true);
+              props.handleSearch(event, searchRef, checked);
+            }}
+            type="submit"
+            className="buttonSearch"
+          >
+            Press
+          </button>
+        </form>
+        <div className="searchContainer">
+          {renderIfValue(props.searchedData)}
+        </div>
+        <SearchRadio checked={checked} checkUpdate={checkUpdateRadio} />
+      </div>
     </>
   );
 }

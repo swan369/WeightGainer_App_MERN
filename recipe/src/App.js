@@ -134,12 +134,25 @@ function App() {
     setUsers([...users, newUser]);
   };
 
-  const handleSearchCategory = (event, searchRef) => {
+  const handleSearch = (event, searchRef, checked) => {
     event.preventDefault();
-    let search = searchRef.current.value;
+    let search = searchRef.current.value.toLowerCase();
     console.log(search);
 
-    setSearchedData(recipes.filter((el) => el.category === search));
+    if (checked.category)
+      setSearchedData(
+        recipes.filter((el) => el.category.toLowerCase() === search)
+      );
+
+    if (checked.title) {
+      setSearchedData(
+        recipes.filter((el) => el.title.toLowerCase().includes(search))
+      );
+    }
+
+    if (checked.id) {
+      setSearchedData(recipes.filter((el) => el._id.toLowerCase() === search));
+    }
 
     // clear input render after submission
     searchRef.current.value = "";
@@ -307,7 +320,7 @@ function App() {
               recipes={recipes}
               searchedData={searchedData}
               handleAddFavourites={handleAddFavourites}
-              handleSearchCategory={handleSearchCategory}
+              handleSearch={handleSearch}
               handleRemoveRecipes={handleRemoveRecipes}
               handleRemoveSearched={handleRemoveSearched}
             />

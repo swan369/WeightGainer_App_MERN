@@ -1,0 +1,17 @@
+.radio {
+
+    background-color: rgb(174, 150, 174);
+    display: flex;
+    text-align: left;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: 500px;
+    height: 200px;
+}
+
+.labelRadio{
+    display: block;
+   margin: 20px;
+    color: black
+}
