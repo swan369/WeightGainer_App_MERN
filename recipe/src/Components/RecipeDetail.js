@@ -11,7 +11,7 @@ function RecipeDetail(props) {
 
   const params = useParams();
   const id = params.id;
-
+  // console.log(id);
   const canDelete = prompt.delete === "confirm";
 
   useEffect(() => {
@@ -84,11 +84,6 @@ function RecipeDetail(props) {
 
   if (prompt.delete === "success") {
     navigate("/success");
-    // return (
-    //   <>
-    //     <div>Delete Success</div>
-    //   </>
-    // );
   }
 
   if (prompt.warning) {
@@ -116,7 +111,7 @@ function RecipeDetail(props) {
   const List = (props) => {
     return (
       <li className="list">
-        {props.index} {props.el}
+        {props.index}. {props.el}
       </li>
     );
   };
@@ -133,7 +128,7 @@ function RecipeDetail(props) {
     return (
       <>
         <div className="divList">
-          <List key={el._id} id={el._id} el={el} index={props.index + 1} />
+          <List key={index} el={el} index={index + 1} />
         </div>
       </>
     );
@@ -145,10 +140,7 @@ function RecipeDetail(props) {
   const steps = newSteps.map((el, index) => {
     return (
       <div className="divList">
-        <List key={el._id} index={index + 1} el={el} />
-        {/* <li className="list" key={el._id}>
-          {index + 1}. {el}
-        </li> */}
+        <List key={index} index={index + 1} el={el} />
       </div>
     );
   });
@@ -159,13 +151,21 @@ function RecipeDetail(props) {
       <div className="detailContainer">
         <div className="buttonContainer">
           <button onClick={handleEdit}>Edit me</button>
+          <button
+            className="add2Favourites"
+            onClick={() => {
+              props.handleAddFavourites(id);
+            }}
+          >
+            add2Favourites
+          </button>
           <button className="button-handleDelete" onClick={handleIsDelete}>
             Delete me
           </button>
         </div>
         <img className="picture" src={recipe.imageURL} alt="food" />
 
-        <h1>{recipe.name}</h1>
+        <h1>{recipe.title}</h1>
         <h2>Ingredients</h2>
         {ingredientsNice}
         <h2>Steps</h2>

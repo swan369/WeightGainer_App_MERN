@@ -29,7 +29,7 @@ function Recipe(props) {
 
   return (
     <>
-      <div className="card">
+      {/* <div className="card">
         <Link to={`/recipes/${props.id}`}>
           <img className="images" src={props.imageURL} alt="foodPicture" />
         </Link>
@@ -48,6 +48,27 @@ function Recipe(props) {
         >
           add2Favourites
         </span>
+      </div> */}
+
+      <div className="card">
+        <Link to={`/recipes/${props.id}`}>
+          <img className="images" src={props.imageURL} alt="foodPicture" />
+        </Link>
+        {/* <span>{props.title}</span> | {"  "}
+        <span onClick={handleRemoveChoice()} style={{ cursor: "pointer" }}>
+          remove | {"  "}
+        </span>{" "}
+        <span onClick={handleRemoveChoice()} style={{ cursor: "pointer" }}>
+          detail
+        </span> */}
+        {/* <span
+          className="add2Favourites"
+          onClick={() => {
+            props.handleAddFavourites(props.id);
+          }}
+        >
+          add2Favourites
+        </span> */}
       </div>
     </>
   );

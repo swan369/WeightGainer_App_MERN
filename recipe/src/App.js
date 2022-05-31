@@ -166,7 +166,7 @@ function App() {
 
     let randomRecipes = [];
     if (recipes.length > 0) {
-      while (randomRecipes.length < 3) {
+      while (randomRecipes.length < 5) {
         // random number is 0,1,2 only i.e. 3 rendered
         let randomIndex = random(recipes.length);
         const found = recipes[randomIndex];
@@ -185,6 +185,7 @@ function App() {
   };
 
   const handleAddFavourites = (id) => {
+    console.log(id);
     const favourite = recipes.find((el) => el._id === id);
     const found = favourites.find((el) => el._id === id);
     if (!found) {
@@ -254,26 +255,37 @@ function App() {
     return <h1>Loading</h1>;
   }
 
+  const logged = () => {
+    if (loggedUser.isLogin) {
+      return (
+        <li>
+          <Link to="/">u signed in</Link>
+        </li>
+      );
+    } else {
+      return (
+        <li>
+          <Link to="*">u signed out</Link>
+        </li>
+      );
+    }
+  };
+
   return (
     <div className="App">
-      <ul>
+      <ul className="navBar">
         <li>
           <Link to="/about">About</Link>
         </li>
         <li>
           <Link to="/">Home</Link>
         </li>
-
         <li>
           <Link to="/recipes">Search</Link>
         </li>
         <li>
           <Link to="/favourites">Favourites</Link>
         </li>
-
-        {/* <li>
-          <Link to="/users/register">Register</Link>
-        </li> */}
         <li>
           <Link to="/recipes/create">CreateRecipe</Link>
         </li>
@@ -286,6 +298,7 @@ function App() {
         <li onClick={handleLogOut}>
           <Link to="/">Logout</Link>
         </li>
+        <li className="logged"> {logged()}</li>
       </ul>
 
       <Routes>
@@ -298,7 +311,7 @@ function App() {
             <Home
               // recipes={recipes}
               randomRecipes={randomRecipes}
-              handleAddFavourites={handleAddFavourites}
+              // handleAddFavourites={handleAddFavourites}
               handleRemoveRecipes={handleRemoveRecipes}
             />
           }
@@ -310,6 +323,7 @@ function App() {
               recipes={recipes}
               recipeDelete={recipeDelete}
               loggedUser={loggedUser}
+              handleAddFavourites={handleAddFavourites}
             />
           }
         />

@@ -75,10 +75,14 @@ const Login = (props) => {
   return (
     <>
       <div className="divLogin">
-        <h3>login page</h3>
+        <h3>Login Page</h3>
         <div className="divLoginEmail">
-          <label>Email: </label>
+          <label htmlFor="email" className="labelEmail">
+            Email:{" "}
+          </label>
           <input
+            id="email"
+            className="inputEmail"
             name="email"
             value={login.email}
             onChange={(event) => {
@@ -89,8 +93,12 @@ const Login = (props) => {
 
         <br />
         <div>
-          <label>Password: </label>
+          <label htmlFor="password" className="labelPassword">
+            Password:{" "}
+          </label>
           <input
+            id="password"
+            className="inputPassword"
             name="password"
             value={login.password}
             onChange={(event) => {

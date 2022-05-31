@@ -1,23 +1,47 @@
 .divLogin{
-    width: 500px;
+    margin-top: 50px;
+    height: 300px;
+    background-color: orange;
+    color: white;
+    width: 350px;
     margin-right: auto;
     margin-left: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
-    ;
 }
-.divLoginEmail{
-display: inline-block;
+
+.inputEmail{
+    margin-right: 20px;
+        float:right;
+        width: 200px;
+    }
+
+.labelEmail{
+    margin-left: 20px;
+    float: left;
+}
+
+.inputPassword{
+    margin-right: 20px;
+    float:right;
+    width: 200px;
+}
+
+.labelPassword{
+    margin-left: 20px;
+    float: left;
 }
 
 .btnLoginRedirect{
-
-margin-top: 10px;
+width: 100%;
+margin-top: 30px;
 background-color: red;
 }
 
+
+
 .btnLoginSubmit{
-    margin-top: 20px;
+    margin-top: 70px;
+    width: 100%;
 }
+

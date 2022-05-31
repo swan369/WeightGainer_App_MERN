@@ -1,21 +1,21 @@
 .card {
     display: inline-block;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-    width: 300px;
-    height: 300px;
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+    /* transition: 0.3s; */
+    /* border-radius: 5px; */
+    width: 500px;
+    height: 500px;
   }
   
   /* Add rounded corners to the top left and the top right corner of the image */
   .images {
-    margin-top: 20px;
+    
     display: block;
-    border-radius: 5px 5px 0 0;
-    width: 200px;
-    height: 200px;
-    margin-right: auto;
-    margin-left: auto;
+  
+    width: 100%;
+    height: 100%;
+    /* margin-right: auto;
+    margin-left: auto; */
   }
 
 span{
@@ -25,4 +25,10 @@ span{
   span:hover{
    color: purple
 
+  }
+
+  .smallDiv{
+width: 33%;
+background-color: blueviolet;
+    display: inline-block
   }

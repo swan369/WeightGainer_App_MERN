@@ -56,10 +56,12 @@ function Recipes(props) {
             Press
           </button>
         </form>
+        <div>
+          <SearchRadio checked={checked} checkUpdateRadio={checkUpdateRadio} />
+        </div>
         <div className="searchContainer">
           {renderIfValue(props.searchedData)}
         </div>
-        <SearchRadio checked={checked} checkUpdate={checkUpdateRadio} />
       </div>
     </>
   );

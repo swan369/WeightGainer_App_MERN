@@ -14,13 +14,13 @@ export default function SearchRadio(props) {
       },
     };
 
-    props.checkUpdate(checkedObj);
+    props.checkUpdateRadio(checkedObj);
   };
   return (
     <>
       <div className="radio">
         <form>
-          <label className="labelRadio">
+          <label className="labelRadio" htmlFor="category">
             <input
               type="radio"
               name="category"
@@ -40,7 +40,7 @@ export default function SearchRadio(props) {
             />
             Filter by "title"
           </label>
-          <label className="labelRadio" for="id">
+          <label className="labelRadio" htmlFor="id">
             <input
               type="radio"
               name="id"
