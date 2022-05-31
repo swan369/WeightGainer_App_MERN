@@ -5,10 +5,11 @@ export default function About() {
   return (
     <>
       <div className="containerAbout">
-        <p>
-          Recognition: Data was taken from TheMealDB to develop my RESTful API
-          project
-        </p>
+        <h2>
+          Recognition: Data was taken from TheMealDB.com to develop my RESTful
+          API - full-stack MERN project
+        </h2>
+
         {/* <ul>
           <li>This is my first RESTful API</li>
 

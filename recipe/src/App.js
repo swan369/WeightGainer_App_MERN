@@ -14,6 +14,10 @@ import Success from "./Components/Success";
 import Account from "./Components/Account";
 import UserUpdate from "./Components/UserUpdate";
 import UserDetail from "./Components/UserDetail";
+import SearchIcon from "@mui/icons-material/Search";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import HomeIcon from "@mui/icons-material/Home";
+import { integerPropType } from "@mui/utils";
 
 const axios = require("axios");
 
@@ -258,14 +262,14 @@ function App() {
   const logged = () => {
     if (loggedUser.isLogin) {
       return (
-        <li>
+        <li className="logged">
           <Link to="/">u signed in</Link>
         </li>
       );
     } else {
       return (
-        <li>
-          <Link to="*">u signed out</Link>
+        <li className="logged">
+          <Link to="/">you are signed out</Link>
         </li>
       );
     }
@@ -275,32 +279,41 @@ function App() {
     <div className="App">
       <ul className="navBar">
         <li>
+          <Link to="/">WeightGAINER</Link>
+        </li>
+        <li>
           <Link to="/about">About</Link>
         </li>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <HomeIcon />
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/favourites">
+            <FavoriteBorderIcon />
+          </Link>
         </li>
         <li>
-          <Link to="/recipes">Search</Link>
+          <Link to="/recipes/create">Create Recipe</Link>
         </li>
         <li>
-          <Link to="/favourites">Favourites</Link>
+          <Link to="/recipes">
+            <SearchIcon />
+          </Link>
         </li>
-        <li>
-          <Link to="/recipes/create">CreateRecipe</Link>
-        </li>
-        <li>
+        <li className="floatRight">
           <Link to="/users/account">Account Management</Link>
         </li>
-        <li>
-          <Link to="/users/login">Login</Link>
-        </li>
-        <li onClick={handleLogOut}>
+        <li className="floatRight" onClick={handleLogOut}>
           <Link to="/">Logout</Link>
         </li>
-        <li className="logged"> {logged()}</li>
+        <li className="floatRight">
+          <Link to="/users/login">Login</Link>
+        </li>
+        {logged()}
       </ul>
-
       <Routes>
         {/* <Route path="*" element={<NotFound />} /> */}
         <Route path="/success" element={<Success />} />

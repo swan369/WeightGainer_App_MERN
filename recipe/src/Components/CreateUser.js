@@ -52,10 +52,12 @@ export default function CreateUsers(props) {
 
   if (error.isError === true) {
     return (
-      <div>
+      <div className="errorContainer">
         <h3>Error: See below message for details...</h3>
         {error.message}
-        <button onClick={handleReturn}>Return to Registration</button>
+        <button className="errorBtn" onClick={handleReturn}>
+          Return to Registration
+        </button>
       </div>
     );
   }
@@ -63,8 +65,10 @@ export default function CreateUsers(props) {
   if (error.isError === false) {
     return (
       <>
-        <div>Registration Success !</div>
-        <button onClick={handleRedirectHome}>Click to login</button>
+        <div className="divRegSuccess">
+          <h3>Registration Success !</h3>
+          <button onClick={handleRedirectHome}>Click to login</button>
+        </div>
       </>
     );
   }

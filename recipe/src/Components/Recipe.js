@@ -4,28 +4,28 @@ import { Link } from "react-router-dom";
 function Recipe(props) {
   // console.log(props);
 
-  const favourites = props.handleRemoveFavourites;
-  const recipes = props.handleRemoveRecipes;
-  const searched = props.handleRemoveSearched;
+  // const favourites = props.handleRemoveFavourites;
+  // const recipes = props.handleRemoveRecipes;
+  // const searched = props.handleRemoveSearched;
 
-  const handleRemoveChoice = () => {
-    if (favourites) {
-      return () => {
-        props.handleRemoveFavourites(props.id);
-      };
-    }
+  // const handleRemoveChoice = () => {
+  //   if (favourites) {
+  //     return () => {
+  //       props.handleRemoveFavourites(props.id);
+  //     };
+  //   }
 
-    if (recipes) {
-      return () => {
-        props.handleRemoveRecipes(props.id);
-      };
-    }
-    if (searched) {
-      return () => {
-        props.handleRemoveSearched(props.id);
-      };
-    }
-  };
+  //   if (recipes) {
+  //     return () => {
+  //       props.handleRemoveRecipes(props.id);
+  //     };
+  //   }
+  //   if (searched) {
+  //     return () => {
+  //       props.handleRemoveSearched(props.id);
+  //     };
+  //   }
+  // };
 
   return (
     <>
