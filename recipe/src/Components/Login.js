@@ -110,6 +110,9 @@ const Login = (props) => {
         <button onClick={handleSubmit} className="btnLoginSubmit">
           Login
         </button>
+        <div className="notSignedUp">
+          <h5>not signed up ?</h5>
+        </div>
         <button onClick={handleToRegistration} className="btnLoginRedirect">
           Link to Registration
         </button>

@@ -1,11 +1,11 @@
 import "./Account.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
 export default function Account(props) {
   const navigate = useNavigate();
-  const [registration, setRegistration] = useState("false");
-  const [update, setUpdate] = useState("false");
+  // const [registration, setRegistration] = useState("false");
+  // const [update, setUpdate] = useState("false");
   const [isLogin, setIsLogin] = useState(false);
 
   const handleRegister = () => {

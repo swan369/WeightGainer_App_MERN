@@ -18,14 +18,12 @@
     margin-left: auto; */
   }
 
-span{
-  cursor: pointer;
-}
 
-  span:hover{
-   color: purple
 
-  }
+  /* span:hover{
+  
+
+  } */
 
   .smallDiv{
 width: 33%;

@@ -66,9 +66,6 @@ export default function UserUpdate(props) {
             />
           </div>
           <input className="btnUserUpdate" type="submit" value="Update" />
-          {/* <button className="buttonRegister" onClick={handleSubmit}>
-            Submit
-          </button> */}
         </form>
       </div>
     </>

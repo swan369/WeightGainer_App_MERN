@@ -12,12 +12,13 @@ import CreateUser from "./Components/CreateUser";
 import RecipeUpdate from "./Components/RecipeUpdate";
 import Success from "./Components/Success";
 import Account from "./Components/Account";
-import UserUpdate from "./Components/UserUpdate";
+// import UserUpdate from "./Components/UserUpdate";
 import UserDetail from "./Components/UserDetail";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
-import { integerPropType } from "@mui/utils";
+import CreateIcon from "@mui/icons-material/Create";
+// import { integerPropType } from "@mui/utils";
 
 const axios = require("axios");
 
@@ -97,7 +98,6 @@ function App() {
 
     setRecipes(
       copyRecipes.map((recipe, index) => {
-        console.log("inside line 47");
         console.log(recipe._id, updatedRecipe._id);
 
         if (recipe._id === updatedRecipe._id) {
@@ -156,6 +156,10 @@ function App() {
 
     if (checked.id) {
       setSearchedData(recipes.filter((el) => el._id.toLowerCase() === search));
+    }
+
+    if (checked.all) {
+      setSearchedData(recipes);
     }
 
     // clear input render after submission
@@ -261,59 +265,61 @@ function App() {
 
   const logged = () => {
     if (loggedUser.isLogin) {
-      return (
-        <li className="logged">
-          <Link to="/">u signed in</Link>
-        </li>
-      );
+      return <span className="logged">u signed in</span>;
     } else {
-      return (
-        <li className="logged">
-          <Link to="/">you are signed out</Link>
-        </li>
-      );
+      return <span className="logged1">u signed out</span>;
     }
   };
 
   return (
     <div className="App">
       <ul className="navBar">
-        <li>
-          <Link to="/">WeightGAINER</Link>
+        <li className="liAppLeft">
+          <Link className="linkApp" to="/about">
+            WeightGAINER
+          </Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/about">About</Link>
-        </li>
+        </li> */}
         <li>
-          <Link to="/">
+          <Link className="linkAppCenter" to="/">
             <HomeIcon />
           </Link>
         </li>
 
         <li>
-          <Link to="/favourites">
+          <Link className="linkAppCenter" to="/favourites">
             <FavoriteBorderIcon />
           </Link>
         </li>
         <li>
-          <Link to="/recipes/create">Create Recipe</Link>
+          <Link className="linkAppCenter" to="/recipes/create">
+            <CreateIcon />
+          </Link>
         </li>
         <li>
-          <Link to="/recipes">
+          <Link className="linkAppCenter" to="/recipes">
             <SearchIcon />
           </Link>
         </li>
         <li className="floatRight">
-          <Link to="/users/account">Account Management</Link>
+          <Link className="linkAppRight" to="/users/account">
+            a/c
+          </Link>
         </li>
         <li className="floatRight" onClick={handleLogOut}>
-          <Link to="/">Logout</Link>
+          <Link className="linkAppRight" to="/">
+            out
+          </Link>
         </li>
         <li className="floatRight">
-          <Link to="/users/login">Login</Link>
+          <Link className="linkAppRight" to="/users/login">
+            in
+          </Link>
         </li>
-        {logged()}
       </ul>
+      <div className="signedOrNot">{logged()}</div>
       <Routes>
         {/* <Route path="*" element={<NotFound />} /> */}
         <Route path="/success" element={<Success />} />

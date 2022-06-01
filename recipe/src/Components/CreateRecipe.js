@@ -84,6 +84,7 @@ const CreateRecipe = (props) => {
 
   return (
     <>
+      <h1>Create Your Recipe</h1>
       <form className="inputCreator" onSubmit={handleSubmit}>
         <div className="divForm">
           {/* <label className="labelRecipeName" htmlFor="recipeName"></label> */}

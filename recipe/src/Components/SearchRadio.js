@@ -10,6 +10,7 @@ export default function SearchRadio(props) {
         title: false,
         id: false,
         category: false,
+        all: false,
         [name]: true,
       },
     };
@@ -49,6 +50,16 @@ export default function SearchRadio(props) {
               onChange={handleChange}
             />{" "}
             Filter by "id"
+          </label>
+          <label className="labelRadio" htmlFor="id">
+            <input
+              type="radio"
+              name="all"
+              value="all"
+              checked={props.checked.all}
+              onChange={handleChange}
+            />{" "}
+            all recipes
           </label>
         </form>
       </div>
