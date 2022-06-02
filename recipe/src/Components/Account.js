@@ -39,9 +39,7 @@ export default function Account(props) {
   return (
     <>
       <div>
-        <div>
-          <h3>Account Management</h3>
-        </div>
+        <div>{/* <h3>Account Management</h3> */}</div>
 
         <div>
           <button className="divRegistration" onClick={handleRegister}>

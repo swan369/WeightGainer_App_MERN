@@ -1,19 +1,71 @@
+const express = require("express");
+// const router = express.Router();
+const jwt = require("jwt-simple");
+const passport = require("../config/passport");
+const config = require("../config/config");
 const User = require("../models/users");
 
-const createUser = async (req, res, next) => {
-  try {
-    const createdUser = await User.create(req.body);
-    res.status(201).json({ message: createdUser });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+//user creation aka sign up with JWT
+const createUser = (req, res) => {
+  if (req.body.email && req.body.password) {
+    let newUser = {
+      email: req.body.email,
+      password: req.body.password,
+    };
+    User.findOne({ email: req.body.email }).then((user) => {
+      //   console.log(user);
+      //   console.log("got in");
+      if (!user) {
+        User.create(newUser).then((user) => {
+          if (user) {
+            console.log("got deeper123");
+            const payload = {
+              id: newUser.id,
+            };
+            const token = jwt.encode(payload, config.jwtSecret);
+            res.json({
+              token: token,
+              user: user,
+            });
+          } else {
+            res.status(400).json({ error: "error !" });
+          }
+        });
+      } else {
+        res
+          .status(400)
+          .json({ message: "user already exists", error: "error !" });
+      }
+    });
+  } else {
+    res.status(400).json({ error: "error !!" });
   }
 };
 
-const getAllUsers = async (req, res, next) => {
-  try {
-    const allUsers = await User.find({});
-    res.status(200).json(allUsers);
-  } catch (error) {
+// user login
+const loginUser = (req, res) => {
+  const error = { message: "User can't be found" };
+  if (req.body.email && req.body.password) {
+    User.findOne({ email: req.body.email }).then((user) => {
+      if (user) {
+        if (user.password === req.body.password) {
+          const payload = {
+            id: user.id,
+          };
+          const token = jwt.encode(payload, config.jwtSecret);
+
+          res.json({
+            token: token,
+            user: user,
+          });
+        } else {
+          res.status(400).json({ error: error.message });
+        }
+      } else {
+        res.status(400).json({ error: error.message });
+      }
+    });
+  } else {
     res.status(400).json({ error: error.message });
   }
 };
@@ -29,16 +81,7 @@ const getUserByIdAndUpdate = async (req, res, next) => {
   }
 };
 
-const getUserByIdAndDelete = async (req, res, next) => {
-  try {
-    const deletedUser = await User.findByIdAndDelete(req.params);
-    res.status(200).json({ deletedUser });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
+// module.exports = router;
 exports.createUser = createUser;
-exports.getAllUsers = getAllUsers;
+exports.loginUser = loginUser;
 exports.getUserByIdAndUpdate = getUserByIdAndUpdate;
-exports.getUserByIdAndDelete = getUserByIdAndDelete;

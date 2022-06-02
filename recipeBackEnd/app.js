@@ -5,9 +5,12 @@ app.use(express.static("public"));
 const mongoose = require("mongoose");
 const usersRoutes = require("./route/usersRoutes");
 const recipesRoutes = require("./route/recipesRoutes");
-// const cors = require("cors");
-
 app.use(express.json());
+// const userController = require("./controllers/userControllers");
+const passport = require("passport");
+require("./config/passport");
+
+// const cors = require("cors");
 
 // one way of getting rid of CORS and..
 // to connect frontend of localhost3000 and backend localhost3003
@@ -26,6 +29,9 @@ app.use((req, res, next) => {
 
 //*** make sure "/" is there and route elements also have "/" to start even it appears like duplicate
 // Ensure this middleware comes after whitelist CORs
+
+app.use(passport.initialize());
+// app.use("/users", userController);
 app.use("/users/", usersRoutes);
 app.use("/recipes/", recipesRoutes);
 

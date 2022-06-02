@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import axios from "axios";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -8,6 +9,15 @@ const Login = (props) => {
 
   const [login, setLogin] = useState({ email: "", password: "" });
   const [status, setStatus] = useState("");
+
+  // handleLogOut() {
+  //   this.setState({
+  //     email: "",
+  //     password: "",
+  //     isLoggedIn: false,
+  //   });
+  //   localStorage.clear();
+  // }
 
   const handleReturn = () => {
     setStatus("");
@@ -29,26 +39,26 @@ const Login = (props) => {
     navigate("/users/account/create");
   };
 
-  const handleSubmit = function () {
-    console.log(login);
-    // console.log(props.users);
-
-    const result = props.users.some(
-      (user) => user.email === login.email && user.password === login.password
-    );
-
-    if (result) {
-      const found = props.users.find(
-        (user) => user.email === login.email && user.password === login.password
-      );
-      found.isLogin = true;
-      props.loginUser(found);
-      setStatus("success");
-    }
-    if (!result) {
-      console.log("login does not match, try again");
-      setStatus("error");
-    }
+  const handleSubmit = function (e) {
+    // console.log(login);
+    let foundUser;
+    e.preventDefault();
+    axios
+      .post("http://localhost:3003/users/login", login)
+      .then((response) => {
+        // console.log(response);
+        localStorage.token = response.data.token;
+        const found = response.data.user;
+        foundUser = { ...found };
+        // console.log(foundUser);
+        foundUser.isLogin = true;
+        props.loginUser(foundUser);
+        setStatus("success");
+        // setState({ isLoggedIn: true });
+      })
+      .catch((err) => {
+        setStatus("error");
+      });
   };
 
   if (status === "success") {
@@ -74,7 +84,65 @@ const Login = (props) => {
   // console.log(loggedUser);
   return (
     <>
-      <div className="divLogin">
+      {/* <div class="ui two column centered grid">hello</div> */}
+
+      <div class="ui centered login">
+        <div class="column">
+          <h2 class="ui purple image header">
+            <div class="content">Log-in to your account</div>
+          </h2>
+
+          <form class="ui large form">
+            <div class="ui stacked segment">
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="user icon"></i>
+                  <input
+                    type="text"
+                    id="email"
+                    className="inputEmail"
+                    name="email"
+                    value={login.email}
+                    onChange={(event) => {
+                      handleChange(event);
+                    }}
+                    placeholder="E-mail address"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="lock icon"></i>
+                  <input
+                    type="password"
+                    id="password"
+                    className="inputPassword"
+                    name="password"
+                    value={login.password}
+                    onChange={(event) => {
+                      handleChange(event);
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                onClick={handleSubmit}
+                class="ui fluid large purple submit button"
+              >
+                Login
+              </div>
+            </div>
+
+            {/* <div class="ui error message"></div> */}
+          </form>
+          <div class="ui message">
+            "New to us ?"
+            <a href="/users/account/create">Sign Up</a>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="divLogin">
         <h3>Login Page</h3>
         <div className="divLoginEmail">
           <label htmlFor="email" className="labelEmail">
@@ -116,7 +184,7 @@ const Login = (props) => {
         <button onClick={handleToRegistration} className="btnLoginRedirect">
           Link to Registration
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

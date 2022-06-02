@@ -18,23 +18,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import CreateIcon from "@mui/icons-material/Create";
-// import { integerPropType } from "@mui/utils";
 
 const axios = require("axios");
-
-// const NotFound = () => {
-//   const redirect = () => {
-//     navigate("/");
-//   };
-
-//   const navigate = useNavigate();
-//   return (
-//     <>
-//       <h1>path not found</h1>
-//       <button onClick={redirect}>Press to go home</button>
-//     </>
-//   );
-// };
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -47,8 +32,8 @@ function App() {
 
   const navigate = useNavigate();
 
-  const loginUser = (found) => {
-    setLoggedUser(found);
+  const loginUser = (foundUser) => {
+    setLoggedUser(foundUser);
   };
 
   const toUpdateUsers = (updatedUser) => {
@@ -61,13 +46,8 @@ function App() {
   };
 
   const handleLogOut = () => {
-    console.log("handleLogOut");
-    const newUsers = [...users];
-    const found = newUsers.find((user) => user.isLogin === true);
-    found["isLogin"] = false;
-    setLoggedUser(found);
-    const filtered = users.filter((user) => user._id !== found._id);
-    setUsers([...filtered, found]);
+    setLoggedUser(false);
+    localStorage.clear();
   };
 
   const recipeDelete = (deletedRecipe) => {
@@ -231,24 +211,24 @@ function App() {
       });
   };
 
-  const getAllUsers = () => {
-    setStatus("pending");
-    axios
-      .get("http://localhost:3003/users")
-      .then(function (response) {
-        // const users = response.data;
-        setStatus("complete");
-        setUsers(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-        setStatus("error");
-      });
-  };
+  // const getAllUsers = () => {
+  //   setStatus("pending");
+  //   axios
+  //     .get("http://localhost:3003/users")
+  //     .then(function (response) {
+  //       // const users = response.data;
+  //       setStatus("complete");
+  //       setUsers(response.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //       setStatus("error");
+  //     });
+  // };
 
   useEffect(() => {
     getAllRecipes();
-    getAllUsers();
+    // getAllUsers();
   }, []);
 
   useEffect(() => {
@@ -379,7 +359,7 @@ function App() {
         />
         <Route
           path="/users/login"
-          element={<Login users={users} loginUser={loginUser} />}
+          element={<Login loggedUser={loggedUser} loginUser={loginUser} />}
         />
 
         <Route

@@ -20,8 +20,8 @@ export default function UserUpdate(props) {
       .put("/users/update/" + id, updatedUser)
       .then((res) => {
         console.log(res.data);
-        const userUpdated = res.data;
-        props.toUpdateUsers(userUpdated.updatedUser);
+        // const userUpdated = res.data;
+        // props.toUpdateUsers(userUpdated.updatedUser);
       })
       .catch((error) => {
         console.log(error.message);
