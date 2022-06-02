@@ -16,6 +16,7 @@ export default function CreateUsers(props) {
   const handleCreateUser = (event) => {
     console.log(event.target.value);
     const name = event.target.name;
+    console.log(name);
     setCreatedUser({ ...createdUser, [name]: event.target.value });
   };
 
@@ -31,21 +32,17 @@ export default function CreateUsers(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(createdUser);
     axios
       .post("http://localhost:3003/users/create", createdUser)
       .then((response) => {
         console.log(response);
-        // localStorage.token = response.data.token; // jwt
-        // setState({isLoggedIn: true})
-        const newUser = response.user;
-
-        console.log(newUser);
-        props.handleAddUser(newUser);
+        localStorage.token = response.data.token; // jwt
         setError({ isError: false });
       })
       .catch(function (error) {
-        // console.log(error.response.data.message);
-        const errorMessage = error.response.data.message;
+        console.log(error);
+        const errorMessage = error.response.data.error;
 
         setError({
           message: errorMessage,
