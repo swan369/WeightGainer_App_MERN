@@ -199,7 +199,8 @@ function App() {
   const getAllRecipes = function () {
     setStatus("pending");
     axios
-      .get("http://localhost:3003/recipes")
+      // .get("http://localhost:3003/recipes")
+      .get("https://recipe369.herokuapp.com/recipes")
       .then((response) => {
         setStatus("complete");
         // console.log(response);
