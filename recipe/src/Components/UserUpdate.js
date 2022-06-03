@@ -17,13 +17,14 @@ export default function UserUpdate(props) {
 
     console.log(updatedUser);
     axios
-      .put("/users/update/" + id, updatedUser)
+      .put("http://localhost:3003/users/update/" + id, updatedUser)
       .then((res) => {
         console.log(res.data);
         // const userUpdated = res.data;
         // props.toUpdateUsers(userUpdated.updatedUser);
       })
       .catch((error) => {
+        console.log(error);
         console.log(error.message);
       });
   };

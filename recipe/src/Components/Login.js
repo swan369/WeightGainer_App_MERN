@@ -35,9 +35,9 @@ const Login = (props) => {
     setLogin({ ...login, [name]: event.target.value });
   };
 
-  const handleToRegistration = function () {
-    navigate("/users/account/create");
-  };
+  // const handleToRegistration = function () {
+  //   navigate("/users/account/create");
+  // };
 
   const handleSubmit = function (e) {
     // console.log(login);
