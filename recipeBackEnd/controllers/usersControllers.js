@@ -23,7 +23,9 @@ const createUser = async (req, res) => {
     }
     const userPassword = await User.findOne({ password: req.body.password });
     if (userPassword) {
-      return res.status(400).json({ error: "please try another password" });
+      return res
+        .status(400)
+        .json({ error: "There was a problem with your login" });
     }
     await User.create(newUser).then((user) => {
       if (user) {
