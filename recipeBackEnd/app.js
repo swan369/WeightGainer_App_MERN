@@ -35,12 +35,9 @@ app.use(passport.initialize());
 app.use("/users/", usersRoutes);
 app.use("/recipes/", recipesRoutes);
 
-mongoose.connect(
-  `mongodb+srv://${process.env.userNamePw}@cluster0.1t4x2.mongodb.net/recipes`,
-  {
-    useNewUrlParser: true,
-  }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+});
 mongoose.connection.once("open", () => {
   console.log("connected to mongoose...");
 });
