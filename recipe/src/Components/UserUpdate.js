@@ -17,7 +17,8 @@ export default function UserUpdate(props) {
 
     console.log(updatedUser);
     axios
-      .put("http://localhost:3003/users/update/" + id, updatedUser)
+      // .put("http://localhost:3003/users/update/" + id, updatedUser)
+      .put("https://recipe369.herokuapp.com/users/update/" + id, updatedUser)
       .then((res) => {
         console.log(res.data);
         // const userUpdated = res.data;

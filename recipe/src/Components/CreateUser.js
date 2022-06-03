@@ -34,7 +34,8 @@ export default function CreateUsers(props) {
     event.preventDefault();
     console.log(createdUser);
     axios
-      .post("http://localhost:3003/users/create", createdUser)
+      // .post("http://localhost:3003/users/create", createdUser)
+      .post("https://recipe369.herokuapp.com/users/create", createdUser)
       .then((response) => {
         console.log(response);
         localStorage.token = response.data.token; // jwt

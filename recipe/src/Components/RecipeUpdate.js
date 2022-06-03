@@ -36,7 +36,8 @@ export default function RecipeUpdate(props) {
 
     axios
       //http://localhost:3000 was removed as proxy was setup in package.json
-      .put(`/recipes/${id}/update`, putRecipe)
+      // .put(`/recipes/${id}/update`, putRecipe)
+      .put(`https://recipe369.herokuapp.com/recipes/${id}/update`, putRecipe)
       .then((response) => {
         setStatus("success");
         console.log(response);

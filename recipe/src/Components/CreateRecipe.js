@@ -34,7 +34,8 @@ const CreateRecipe = (props) => {
 
     // you need the http://localhost:3003
     axios
-      .post("http://localhost:3003/recipes", postItem)
+      // .post("http://localhost:3003/recipes", postItem)
+      .post("https://recipe369.herokuapp.com/recipes", postItem)
       .then(function (response) {
         const createdRecipe = response.data;
         props.handleAddRecipe(createdRecipe);

@@ -44,7 +44,8 @@ const Login = (props) => {
     let foundUser;
     e.preventDefault();
     axios
-      .post("http://localhost:3003/users/login", login)
+      // .post("http://localhost:3003/users/login", login)
+      .post("https://recipe369.herokuapp.com/users/login", login)
       .then((response) => {
         // console.log(response);
         localStorage.token = response.data.token;
